@@ -18,6 +18,8 @@ export interface Reminder {
 	dueDate?: Date;
 	createdAt: Date;
 	lastCompleted?: Date;
+	streak: number;
+	progress: number; // 0-100
 }
 
 export interface Profile {
@@ -28,6 +30,7 @@ export interface Profile {
 export interface AppSettings {
 	darkMode: boolean;
 	alertSound: string;
+	notificationsEnabled: boolean;
 }
 
 export interface Theme {
@@ -48,4 +51,12 @@ export interface DashboardStats {
 	currentStreak: number;
 	longestStreak: number;
 	completionRate: number;
+	categoryBreakdown: { [category: string]: number };
+	priorityBreakdown: { [priority in Priority]: number };
+}
+
+export interface NotificationItem {
+	id: string;
+	message: string;
+	timestamp: Date;
 }
