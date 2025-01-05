@@ -10,7 +10,8 @@ import { AlertDisplay } from "../components/AlertDisplay";
 import { ThemeToggle } from "../components/ThemeToggle";
 import { ThemeManager } from "../components/ThemeManager";
 import { Dashboard } from "../components/Dashboard";
-import { Theme } from "../types";
+import { ReminderSearch } from "../components/ReminderSearch";
+import { Theme, Reminder } from "../types";
 import { ErrorBoundary } from "../components/ErrorBoundary";
 import { Bell } from "lucide-react";
 
@@ -25,17 +26,22 @@ export default function Home() {
 		setCurrentAlert,
 		getStats,
 		getRandomReminder,
+		notifications,
+		addNotification,
+		removeNotification,
 	} = useReminders();
 	const { settings, updateSettings } = useAppSettings();
 	const { categories } = useCategories();
 	const [theme, setTheme] = useState<Theme>({
-		primary: "#F0F4F8",
-		secondary: "#4A90E2",
-		accent: "#4A90E2",
+		primary: "#4A90E2",
+		secondary: "#50E3C2",
+		accent: "#F5A623",
 		background: "#F0F4F8",
 		text: "#4A4A4A",
 	});
 	const [activeTab, setActiveTab] = useState("dashboard");
+	const [filteredReminders, setFilteredReminders] =
+		useState<Reminder[]>(reminders);
 
 	const showRandomReminder = () => {
 		const randomReminder = getRandomReminder();
@@ -52,6 +58,10 @@ export default function Home() {
 			root.classList.remove("dark");
 		}
 	}, [settings.darkMode]);
+
+	useEffect(() => {
+		setFilteredReminders(reminders);
+	}, [reminders]);
 
 	const toggleDarkMode = () => {
 		updateSettings({ darkMode: !settings.darkMode });
@@ -84,14 +94,14 @@ export default function Home() {
 					<div className="flex items-center space-x-4">
 						<button
 							onClick={showRandomReminder}
-							className="py-2 px-4 border border-blue-500 rounded-md"
+							className="py-2 px-4 rounded-md transition-colors duration-200 focus:outline-none focus:opacity-80"
 							style={{
-								borderColor: getColor("secondary"),
-								color: getColor("secondary"),
+								backgroundColor: getColor("secondary"),
+								color: getColor("background"),
 							}}
 						>
-							<Bell className="h-4 w-4 inline-block" />
-							<span className="sr-only">Show Random Reminder</span>
+							<Bell className="h-4 w-4 inline-block mr-2" />
+							Random Reminder
 						</button>
 						<ThemeManager
 							onThemeChange={setTheme}
@@ -107,21 +117,37 @@ export default function Home() {
 					<div className="space-y-4">
 						<div className="flex space-x-2 border-b">
 							<button
-								className={`py-2 px-4 ${
-									activeTab === "dashboard"
-										? "border-b-2 border-blue-500 font-medium"
-										: ""
+								className={`py-2 px-4 transition-colors duration-200 focus:outline-none ${
+									activeTab === "dashboard" ? "border-b-2 font-medium" : ""
 								}`}
+								style={{
+									borderColor:
+										activeTab === "dashboard"
+											? getColor("secondary")
+											: "transparent",
+									color:
+										activeTab === "dashboard"
+											? getColor("secondary")
+											: getColor("text"),
+								}}
 								onClick={() => setActiveTab("dashboard")}
 							>
 								Dashboard
 							</button>
 							<button
-								className={`py-2 px-4 ${
-									activeTab === "reminders"
-										? "border-b-2 border-blue-500 font-medium"
-										: ""
+								className={`py-2 px-4 transition-colors duration-200 focus:outline-none ${
+									activeTab === "reminders" ? "border-b-2 font-medium" : ""
 								}`}
+								style={{
+									borderColor:
+										activeTab === "reminders"
+											? getColor("secondary")
+											: "transparent",
+									color:
+										activeTab === "reminders"
+											? getColor("secondary")
+											: getColor("text"),
+								}}
 								onClick={() => setActiveTab("reminders")}
 							>
 								Reminders
@@ -136,7 +162,7 @@ export default function Home() {
 							/>
 						)}
 						{activeTab === "reminders" && (
-							<div className="grid gap-8 md:grid-cols-2">
+							<div className="space-y-8">
 								<section>
 									<h2
 										className="text-xl font-semibold mb-4"
@@ -159,8 +185,15 @@ export default function Home() {
 									>
 										Your Reminders
 									</h2>
-									<ReminderList
+									<ReminderSearch
 										reminders={reminders}
+										onFilterChange={setFilteredReminders}
+										theme={theme}
+										darkMode={settings.darkMode}
+										getColor={getColor}
+									/>
+									<ReminderList
+										reminders={filteredReminders}
 										onEdit={editReminder}
 										onDelete={deleteReminder}
 										onComplete={completeReminder}
