@@ -83,7 +83,7 @@ export function ReminderList({
 											message: e.target.value,
 										})
 									}
-									className="mt-1 w-full px-3 py-2 border rounded-md"
+									className="mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
 									style={{
 										borderColor: getColor("secondary"),
 										color: getColor("text"),
@@ -109,7 +109,7 @@ export function ReminderList({
 												frequency: e.target.value as Frequency,
 											})
 										}
-										className="mt-1 w-full px-3 py-2 border rounded-md"
+										className="mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
 										style={{
 											borderColor: getColor("secondary"),
 											color: getColor("text"),
@@ -141,7 +141,7 @@ export function ReminderList({
 												category: e.target.value,
 											})
 										}
-										className="mt-1 w-full px-3 py-2 border rounded-md"
+										className="mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
 										style={{
 											borderColor: getColor("secondary"),
 											color: getColor("text"),
@@ -170,7 +170,7 @@ export function ReminderList({
 						{editingId === reminder.id ? (
 							<button
 								onClick={() => handleSave(reminder)}
-								className="px-3 py-1 rounded-md text-sm"
+								className="px-3 py-1 rounded-md text-sm focus:outline-none focus:opacity-80"
 								style={{
 									backgroundColor: getColor("primary"),
 									color: darkMode ? "#ffffff" : getColor("background"),
@@ -183,7 +183,7 @@ export function ReminderList({
 							<>
 								<button
 									onClick={() => handleEdit(reminder)}
-									className="px-3 py-1 rounded-md text-sm"
+									className="px-3 py-1 rounded-md text-sm focus:outline-none focus:opacity-80"
 									style={{
 										borderColor: getColor("primary"),
 										color: getColor("primary"),
@@ -194,7 +194,7 @@ export function ReminderList({
 								</button>
 								<button
 									onClick={() => onComplete(reminder.id)}
-									className="px-3 py-1 rounded-md text-sm"
+									className="px-3 py-1 rounded-md text-sm focus:outline-none focus:opacity-80"
 									style={{
 										borderColor: getColor("secondary"),
 										color: getColor("secondary"),
@@ -207,7 +207,7 @@ export function ReminderList({
 						)}
 						<button
 							onClick={() => onDelete(reminder.id)}
-							className="px-3 py-1 rounded-md text-sm bg-red-500 text-white"
+							className="px-3 py-1 rounded-md text-sm bg-red-500 text-white focus:outline-none focus:opacity-80"
 						>
 							<Trash2 className="w-4 h-4 mr-2 inline" />
 							Delete
