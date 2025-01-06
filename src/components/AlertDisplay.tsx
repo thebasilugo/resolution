@@ -58,7 +58,7 @@ export function AlertDisplay({
 	return (
 		<div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
 			<div
-				className="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-md w-full mx-4"
+				className="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-md w-full mx-4 relative"
 				style={{
 					backgroundColor: darkMode ? "#2a2a2a" : getColor("background"),
 					color: getColor("text"),
@@ -66,7 +66,7 @@ export function AlertDisplay({
 			>
 				<button
 					onClick={onClose}
-					className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+					className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 focus:text-gray-900 dark:focus:text-gray-100"
 				>
 					<X size={24} />
 				</button>
@@ -82,7 +82,7 @@ export function AlertDisplay({
 				<div className="flex justify-end space-x-4">
 					<button
 						onClick={handleComplete}
-						className="px-4 py-2 rounded-md font-medium"
+						className="px-4 py-2 rounded-md font-medium transition-colors duration-200 focus:outline-none focus:opacity-80"
 						style={{
 							backgroundColor: getColor("primary"),
 							color: darkMode ? "#ffffff" : getColor("background"),
@@ -92,7 +92,7 @@ export function AlertDisplay({
 					</button>
 					<button
 						onClick={playAlertSound}
-						className="px-4 py-2 rounded-md font-medium"
+						className="px-4 py-2 rounded-md font-medium transition-colors duration-200 focus:outline-none focus:opacity-80"
 						style={{
 							borderColor: getColor("secondary"),
 							color: getColor("secondary"),
