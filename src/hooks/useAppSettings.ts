@@ -4,6 +4,7 @@ import { AppSettings } from "../types";
 const defaultSettings: AppSettings = {
 	darkMode: false,
 	alertSound: "default",
+	notificationsEnabled: true,
 };
 
 export function useAppSettings() {
