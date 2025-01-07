@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-// import { Button } from '@/components/ui/button'
-// import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Theme } from "../types";
 
 const themes: Theme[] = [
@@ -69,20 +67,22 @@ export function ThemeSelector({ onThemeChange }: ThemeSelectorProps) {
 		<div className="relative">
 			<button
 				onClick={() => setIsOpen(!isOpen)}
-				className="w-10 h-10 rounded-full"
+				className="w-10 h-10 rounded-full focus:outline-none focus:opacity-80"
 				style={{ backgroundColor: selectedTheme.primary }}
 			>
 				<span className="sr-only">Toggle theme</span>
 			</button>
 			{isOpen && (
-				<div className="absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-2">
-					<h3 className="text-sm font-medium mb-2">Choose a theme</h3>
+				<div className="absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-2 z-10">
+					<h3 className="text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+						Choose a theme
+					</h3>
 					<div className="flex flex-wrap gap-2">
 						{themes.map((theme, index) => (
 							<button
 								key={index}
 								onClick={() => handleThemeChange(theme)}
-								className={`w-6 h-6 rounded-full ${
+								className={`w-6 h-6 rounded-full focus:outline-none focus:opacity-80 ${
 									selectedTheme === theme
 										? "ring-2 ring-offset-2 ring-black dark:ring-white"
 										: ""
